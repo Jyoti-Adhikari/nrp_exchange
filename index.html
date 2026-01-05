@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPR Exchange - Nepali Rupee Converter</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Background Image -->
+    <div class="background-image"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1><i class="fas fa-coins"></i> NPR Exchange</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#converter" class="active">Converter</a></li>
+                <li><a href="#rates">Rates</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#" id="refreshRates"><i class="fas fa-sync-alt"></i> Refresh</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Convert NPR to Major Currencies</h2>
+            <p class="subtitle">Real-time exchange rates for Nepal</p>
+            
+            <div class="conversion-box">
+                <div class="amount-display">
+                    <div class="currency-tag">NPR</div>
+                    <div class="amount" id="displayAmount">1000</div>
+                </div>
+                
+                <div class="amount-input">
+                    <input type="range" id="amountSlider" min="100" max="100000" value="1000" step="100">
+                    <div class="slider-labels">
+                        <span>100</span>
+                        <span>50,000</span>
+                        <span>100,000</span>
+                    </div>
+                    <div class="manual-input">
+                        <span>Custom Amount: NPR</span>
+                        <input type="number" id="amountInput" value="1000" min="100" max="1000000">
+                    </div>
+                </div>
+                
+                <p class="disclaimer">
+                    <i class="fas fa-info-circle"></i>
+                    Exchange rates are indicative and updated every hour
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Converter Section -->
+    <section class="converter-section" id="converter">
+        <div class="container">
+            <h3>Convert NPR to Major Currencies</h3>
+            
+            <div class="converter-grid">
+                <!-- USD Card -->
+                <div class="currency-card" data-currency="USD">
+                    <div class="currency-header">
+                        <span class="flag">🇺🇸</span>
+                        <div class="currency-info">
+                            <h4>US Dollar</h4>
+                            <p>USD</p>
+                        </div>
+                    </div>
+                    <div class="currency-amount" id="usdAmount">7.50</div>
+                    <div class="currency-rate">1 NPR = <span id="usdRate">0.0075</span> USD</div>
+                </div>
+
+                <!-- INR Card -->
+                <div class="currency-card" data-currency="INR">
+                    <div class="currency-header">
+                        <span class="flag">🇮🇳</span>
+                        <div class="currency-info">
+                            <h4>Indian Rupee</h4>
+                            <p>INR</p>
+                        </div>
+                    </div>
+                    <div class="currency-amount" id="inrAmount">620.00</div>
+                    <div class="currency-rate">1 NPR = <span id="inrRate">0.62</span> INR</div>
+                </div>
+
+                <!-- EUR Card -->
+                <div class="currency-card" data-currency="EUR">
+                    <div class="currency-header">
+                        <span class="flag">🇪🇺</span>
+                        <div class="currency-info">
+                            <h4>Euro</h4>
+                            <p>EUR</p>
+                        </div>
+                    </div>
+                    <div class="currency-amount" id="eurAmount">6.90</div>
+                    <div class="currency-rate">1 NPR = <span id="eurRate">0.0069</span> EUR</div>
+                </div>
+
+                <!-- GBP Card -->
+                <div class="currency-card" data-currency="GBP">
+                    <div class="currency-header">
+                        <span class="flag">🇬🇧</span>
+                        <div class="currency-info">
+                            <h4>British Pound</h4>
+                            <p>GBP</p>
+                        </div>
+                    </div>
+                    <div class="currency-amount" id="gbpAmount">5.90</div>
+                    <div class="currency-rate">1 NPR = <span id="gbpRate">0.0059</span> GBP</div>
+                </div>
+
+                <!-- AUD Card -->
+                <div class="currency-card" data-currency="AUD">
+                    <div class="currency-header">
+                        <span class="flag">🇦🇺</span>
+                        <div class="currency-info">
+                            <h4>Australian Dollar</h4>
+                            <p>AUD</p>
+                        </div>
+                    </div>
+                    <div class="currency-amount" id="audAmount">11.40</div>
+                    <div class="currency-rate">1 NPR = <span id="audRate">0.0114</span> AUD</div>
+                </div>
+
+                <!-- JPY Card -->
+                <div class="currency-card" data-currency="JPY">
+                    <div class="currency-header">
+                        <span class="flag">🇯🇵</span>
+                        <div class="currency-info">
+                            <h4>Japanese Yen</h4>
+                            <p>JPY</p>
+                        </div>
+                    </div>
+                    <div class="currency-amount" id="jpyAmount">1,120.00</div>
+                    <div class="currency-rate">1 NPR = <span id="jpyRate">1.12</span> JPY</div>
+                </div>
+            </div>
+
+            <div class="last-updated">
+                <i class="fas fa-clock"></i>
+                Last updated: <span id="updateTime">--:--</span>
+                <button id="autoUpdateBtn" class="auto-update-btn">
+                    <i class="fas fa-sync"></i> Auto Update (ON)
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rates Section -->
+    <section class="rates-section" id="rates">
+        <div class="container">
+            <h3>Detailed Exchange Rates</h3>
+            <div class="rates-table-container">
+                <table class="rates-table">
+                    <thead>
+                        <tr>
+                            <th>Currency</th>
+                            <th>Code</th>
+                            <th>Buy Rate</th>
+                            <th>Sell Rate</th>
+                            <th>Last Updated</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ratesTableBody">
+                        <!-- Filled by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <h3>About NPR Exchange</h3>
+            <div class="about-content">
+                <div class="about-card">
+                    <i class="fas fa-bolt"></i>
+                    <h4>Real-time Rates</h4>
+                    <p>Get live exchange rates updated automatically every hour from reliable sources.</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-history"></i>
+                    <h4>Historical Data</h4>
+                    <p>Track currency trends with our historical exchange rate data.</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h4>Mobile Friendly</h4>
+                    <p>Access our converter on any device, anywhere, anytime.</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>Secure & Free</h4>
+                    <p>100% free service with secure, anonymous conversions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3><i class="fas fa-coins"></i> NPR Exchange</h3>
+                    <p>Your trusted Nepali Rupee converter</p>
+                </div>
+                <div class="footer-info">
+                    <p>&copy; 2024 NPR Exchange. All rates are indicative.</p>
+                    <p>For official banking rates, please contact your financial institution.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div id="loading" class="loading-overlay">
+        <div class="spinner">
+            <i class="fas fa-coins"></i>
+        </div>
+        <p>Updating exchange rates...</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
